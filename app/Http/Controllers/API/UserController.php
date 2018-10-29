@@ -36,7 +36,7 @@ public $successStatus = 200;
     public function logout(){
         if (Auth::check()) {
             Auth::user()->token()->revoke();
-            return response()->json(['success' => 'Token logged out'], $this->successStatus);
+            return response()->json(['success' => 'Token has been revoked'], $this->successStatus);
         } else { 
             return response()->json(['error'=>'Invalid token'], 401); 
         } 
@@ -80,6 +80,9 @@ public $successStatus = 200;
             return response()->json(['error'=>'Unauthorised'], 401);
         }
     }
+
+    
+    
 
 
 

@@ -7,6 +7,9 @@ use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Laravel\Passport\HasApiTokens;
 
+use App\Item;
+use App\Group;
+
 class User extends Authenticatable
 {
     use HasApiTokens, Notifiable;
@@ -29,7 +32,21 @@ class User extends Authenticatable
         'password', 'remember_token',
     ];
 
-    public function AauthAcessToken(){
-        return $this->hasMany('\App\OauthAccessToken');
+    /**
+     * Get the group for a user
+     * 
+     * @return App\Group
+     */
+    public function group() {
+        return $this->belongsTo('App\Group');
+    }
+
+    /**
+     * Get the items for the user
+     * 
+     * @return App\Item
+     */
+    public function items() {
+        return $this->belongsToMany('App\Item');
     }
 }

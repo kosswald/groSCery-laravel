@@ -13,15 +13,26 @@ use Illuminate\Http\Request;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
-    return $request->user();
-});
+// Route::middleware('auth:api')->get('/user', function (Request $request) {
+//     return $request->user();
+// });
 
 
 Route::post('login', 'API\UserController@login');
-
 Route::post('register', 'API\UserController@register');
 Route::group(['middleware' => 'auth:api'], function(){
     Route::post('details', 'API\UserController@details');
     Route::post('logout', 'API\UserController@logout');
+
+    // Users routes
+    Route::get('users/items','API\UserController@items');
+
+    // Groups routes
+    Route::get('groups/items','API\GroupController@items');
+
+    // Items routes
+    Route::post('items/add', 'API\ItemController@add');
+    Route::post('items/item.out-of-stock/{item_id}','API\ItemController@outOfStock');
+    Route::post('items/item.in-stock/{item_id}','API\ItemController@inStock');
+
 });

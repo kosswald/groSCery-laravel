@@ -85,9 +85,10 @@
                 </div>
 
                 <h1>Documentation In Progress</h1>
-                <h3>/exampleurl</h3>
-                Request parameter: </br>
-                Return: 
+                <h3>/api/login</h3>
+                Request form data: email, password </br>
+                Return: token 
+                Store the token for  memory 
             </div>
         </div>
     </body>
