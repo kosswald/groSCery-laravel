@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Http\Controllers\API;
+namespace App\Http\Controllers;
 
 use Illuminate\Http\Request; 
-use App\Http\Controllers\Controller; 
 use App\User; 
 use Illuminate\Support\Facades\Auth; 
 use Validator;
@@ -16,8 +15,6 @@ use Validator;
  *      securityScheme="bearer",
  *      bearerFormat="JWT"
  * ),
- * 
- * 
  * 
  * @OA\Response(
  *  response=401,
@@ -128,7 +125,7 @@ class UserController extends Controller
             Auth::user()->token()->revoke();
             return response()->json(['success' => 'Token has been revoked'], $this->successStatus);
         } else { 
-            return response()->json(['error'=>'Invalid token'], 401); 
+            return response()->json(['error'=>'Unauthroized'], 401); 
         } 
     }
 
@@ -187,7 +184,7 @@ class UserController extends Controller
     *               property="error",
     *               type="string",
     *           ),
-    *           example={"error": "User could not be created"}
+    *           example={"error": "User already exists"}
     *       )
     *   )
     * )
@@ -205,7 +202,7 @@ class UserController extends Controller
         }
         $input = $request->all();
         if (User::where('email',$input['email'])->first()) {
-            return response()->json(['error'=>'User could not be created'], 409);
+            return response()->json(['error'=>'User already exists'], 409);
         }
         $input['password'] = bcrypt($input['password']); 
         $user = User::create($input);
@@ -229,11 +226,11 @@ class UserController extends Controller
     *               type="object",
     *               @OA\Property(
     *                   property="id",
-    *                   type="string"
+    *                   type="int"
     *               ),
     *               @OA\Property(
     *                   property="group_id",
-    *                   type="string"
+    *                   type="int"
     *               ),
     *               @OA\Property(
     *                   property="name",
@@ -270,5 +267,51 @@ class UserController extends Controller
             return response()->json(['error'=>'Unauthorised'], 401);
         }
     }
+
+    /**
+    * @OA\Get(
+    *   path="/api/users/items",
+    *   summary="Get a user's subscibed items",
+    *   tags={"Users"},
+    *   security={"bearer"},
+    *   @OA\Response(
+    *       response=200,
+    *       description="User items have been retrieved",
+    *       @OA\JsonContent(
+    *           @OA\Property(
+    *               property="success",
+    *               type="object",
+    *               @OA\Property(
+    *                   property="id",
+    *                   type="int"
+    *               ),
+    *               @OA\Property(
+    *                   property="group_id",
+    *                   type="int"
+    *               ),
+    *               @OA\Property(
+    *                   property="name",
+    *                   type="string"
+    *               ),
+    *               @OA\Property(
+    *                   property="pic_url",
+    *                   type="string"
+    *               )
+    *           ),
+    *           example={"success":{{"id":1,"group_id":1,"name":"Banana","in_stock":1,"pic_url":null}}}
+    *       )
+    *   ),
+    *   @OA\Response(
+    *       response=401,
+    *       ref="#/components/responses/401",
+    *   )
+    * )
+    */ 
+    public function items() 
+    {
+        return response()->json(['success' => Auth::user()->items()], $this->successStatus);
+    }
+
+
 
 }

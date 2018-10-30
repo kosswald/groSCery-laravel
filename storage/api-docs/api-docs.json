@@ -5,13 +5,207 @@
         "version": "1.0"
     },
     "paths": {
+        "/api/groups/list": {
+            "get": {
+                "tags": [
+                    "Groups"
+                ],
+                "summary": "List all the groups and their IDs",
+                "responses": {
+                    "200": {
+                        "description": "Groups have been retrieved",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "int"
+                                                },
+                                                "name": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "example": {
+                                    "success": [
+                                        {
+                                            "id": 1,
+                                            "name": "201"
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/401"
+                    }
+                },
+                "security": [
+                    "bearer"
+                ]
+            }
+        },
+        "/api/groups/items": {
+            "get": {
+                "tags": [
+                    "Groups"
+                ],
+                "summary": "Get a group's subscibed items",
+                "operationId": "App\\Http\\Controllers\\GroupController::items",
+                "responses": {
+                    "200": {
+                        "description": "Group items have been retrieved",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "int"
+                                                },
+                                                "group_id": {
+                                                    "type": "int"
+                                                },
+                                                "name": {
+                                                    "type": "string"
+                                                },
+                                                "pic_url": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "example": {
+                                    "success": [
+                                        {
+                                            "id": 1,
+                                            "group_id": 1,
+                                            "name": "Banana",
+                                            "in_stock": 1,
+                                            "pic_url": null
+                                        }
+                                    ]
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/401"
+                    }
+                },
+                "security": [
+                    "bearer"
+                ]
+            }
+        },
+        "/api/groups/subscribe/{group_id}": {
+            "post": {
+                "tags": [
+                    "Groups"
+                ],
+                "summary": "Subscribe a user to a group",
+                "operationId": "App\\Http\\Controllers\\GroupController::subscribe",
+                "responses": {
+                    "200": {
+                        "description": "User has been subscribed to group",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "example": {
+                                    "success": "User has been subscribed to group 201"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/400"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/401"
+                    }
+                },
+                "security": [
+                    "bearer"
+                ]
+            }
+        },
+        "/api/groups/create/{group_name}": {
+            "post": {
+                "tags": [
+                    "Groups"
+                ],
+                "summary": "Create a new group and subscribe to it",
+                "operationId": "App\\Http\\Controllers\\GroupController::create",
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "properties": {
+                                    "name": {
+                                        "type": "string"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Group created and user subscribed",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "example": {
+                                    "success": "Group 201 created and user is subscribed"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/400"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/401"
+                    }
+                },
+                "security": [
+                    "bearer"
+                ]
+            }
+        },
         "/api/login": {
             "post": {
                 "tags": [
                     "Login, Logout, and Registration"
                 ],
                 "summary": "Login a user",
-                "operationId": "App\\Http\\Controllers\\API\\UserController::login",
+                "operationId": "App\\Http\\Controllers\\UserController::login",
                 "requestBody": {
                     "content": {
                         "application/x-www-form-urlencoded": {
@@ -67,7 +261,7 @@
                     "Login, Logout, and Registration"
                 ],
                 "summary": "Logout a user",
-                "operationId": "App\\Http\\Controllers\\API\\UserController::logout",
+                "operationId": "App\\Http\\Controllers\\UserController::logout",
                 "responses": {
                     "200": {
                         "description": "Logout successful",
@@ -102,7 +296,7 @@
                     "Login, Logout, and Registration"
                 ],
                 "summary": "Register a new user",
-                "operationId": "App\\Http\\Controllers\\API\\UserController::register",
+                "operationId": "App\\Http\\Controllers\\UserController::register",
                 "requestBody": {
                     "content": {
                         "application/x-www-form-urlencoded": {
@@ -168,7 +362,7 @@
                                     "type": "object"
                                 },
                                 "example": {
-                                    "error": "User could not be created"
+                                    "error": "User already exists"
                                 }
                             }
                         }
@@ -182,7 +376,7 @@
                     "Users"
                 ],
                 "summary": "Get a users basic information",
-                "operationId": "App\\Http\\Controllers\\API\\UserController::details",
+                "operationId": "App\\Http\\Controllers\\UserController::details",
                 "responses": {
                     "200": {
                         "description": "User details have been retrieved",
@@ -193,10 +387,10 @@
                                         "success": {
                                             "properties": {
                                                 "id": {
-                                                    "type": "string"
+                                                    "type": "int"
                                                 },
                                                 "group_id": {
-                                                    "type": "string"
+                                                    "type": "int"
                                                 },
                                                 "name": {
                                                     "type": "string"
@@ -225,6 +419,63 @@
                                         "email": "kristof@usc.edu",
                                         "created_at": "2018-10-30 01:13:02"
                                     }
+                                }
+                            }
+                        }
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/401"
+                    }
+                },
+                "security": [
+                    "bearer"
+                ]
+            }
+        },
+        "/api/users/items": {
+            "get": {
+                "tags": [
+                    "Users"
+                ],
+                "summary": "Get a user's subscibed items",
+                "operationId": "App\\Http\\Controllers\\UserController::items",
+                "responses": {
+                    "200": {
+                        "description": "User items have been retrieved",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "properties": {
+                                                "id": {
+                                                    "type": "int"
+                                                },
+                                                "group_id": {
+                                                    "type": "int"
+                                                },
+                                                "name": {
+                                                    "type": "string"
+                                                },
+                                                "pic_url": {
+                                                    "type": "string"
+                                                }
+                                            },
+                                            "type": "object"
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "example": {
+                                    "success": [
+                                        {
+                                            "id": 1,
+                                            "group_id": 1,
+                                            "name": "Banana",
+                                            "in_stock": 1,
+                                            "pic_url": null
+                                        }
+                                    ]
                                 }
                             }
                         }

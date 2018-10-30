@@ -13,26 +13,30 @@ use Illuminate\Http\Request;
 |
 */
 
-// Route::middleware('auth:api')->get('/user', function (Request $request) {
-//     return $request->user();
-// });
-
-
-Route::post('login', 'API\UserController@login');
-Route::post('register', 'API\UserController@register');
+Route::post('login', 'UserController@login');
+Route::post('register', 'UserController@register');
 Route::group(['middleware' => 'auth:api'], function(){
 
     // Users routes
-    Route::post('logout', 'API\UserController@logout');
-    Route::get('users/details', 'API\UserController@details');
-    Route::get('users/items','API\UserController@items');
+    Route::post('logout', 'UserController@logout');
+    Route::get('users/details', 'UserController@details');
+    Route::get('users/items','UserController@items');
 
     // Groups routes
-    Route::get('groups/items','API\GroupController@items');
+    Route::get('groups/list','GroupController@list');
+    Route::get('groups/items','GroupController@items');
+    Route::post('groups/create','GroupController@create');
+    Route::post('groups/subscribe/{group_id}','GroupController@subscribe');
+
 
     // Items routes
-    Route::post('items/add', 'API\ItemController@add');
-    Route::post('items/item.out-of-stock/{item_id}','API\ItemController@outOfStock');
-    Route::post('items/item.in-stock/{item_id}','API\ItemController@inStock');
+    Route::post('items/add', 'ItemController@add');
+    Route::post('items/subscribe/{item_id}', 'ItemController@subscribe');
+    Route::post('items/unsubscribe/{item_id}', 'ItemController@unsubscribe');
+    Route::post('items/item.out-of-stock/{item_id}','ItemController@outOfStock');
+    Route::post('items/item.in-stock/{item_id}','ItemController@inStock');
+
+    // Transaction routes
+    Route::post('transactions/purchase/{item_id}','TransactionController@purchase');
 
 });

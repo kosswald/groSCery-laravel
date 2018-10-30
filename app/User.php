@@ -47,6 +47,6 @@ class User extends Authenticatable
      * @return App\Item
      */
     public function items() {
-        return $this->belongsToMany('App\Item');
+        return $this->belongsToMany('App\Item')->get();
     }
 }
