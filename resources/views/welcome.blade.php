@@ -83,12 +83,9 @@
                 <div class="title m-b-md">
                     groSCery API
                 </div>
-
-                <h1>Documentation In Progress</h1>
-                <h3>/api/login</h3>
-                Request form data: email, password </br>
-                Return: token 
-                Store the token for  memory 
+                <a href="api/docs">
+                    <h1>Documentation</h1>
+                </a>
             </div>
         </div>
     </body>
