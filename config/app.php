@@ -175,6 +175,8 @@ return [
 
         Laravel\Passport\PassportServiceProvider::class,
 
+        Mpociot\ApiDoc\ApiDocGeneratorServiceProvider::class,
+
     ],
 
     /*

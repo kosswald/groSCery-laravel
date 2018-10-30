@@ -84,11 +84,8 @@
                     groSCery API
                 </div>
 
-                <h1>Documentation In Progress</h1>
-                <h3>/api/login</h3>
-                Request form data: email, password </br>
-                Return: token 
-                Store the token for  memory 
+                <h1><a href="docs/index.html">Go To Docs</a></h1>
+                 
             </div>
         </div>
     </body>

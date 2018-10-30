@@ -9,6 +9,11 @@ use App\User;
 use Illuminate\Support\Facades\Auth; 
 use App\Item;
 
+/**
+ * @group Item Management
+ *
+ * APIs for managing items
+ */
 class ItemController extends Controller
 {
     /**
@@ -20,7 +25,7 @@ class ItemController extends Controller
             return response()->json(['error'=>'Item not found'], 404);
         }
         if ($item->group_id != Auth::user()->group_id){
-            return response()->json(['error'=>'Unauthroized'], 401);
+            return response()->json(['error'=>'Unauthroized item'], 401);
         }
         $item->in_stock = true;
         $item->save();
@@ -36,7 +41,7 @@ class ItemController extends Controller
             return response()->json(['error'=>'Item not found'], 404);
         }
         if ($item->group_id != Auth::user()->group_id){
-            return response()->json(['error'=>'Unauthroized'], 401);
+            return response()->json(['error'=>'Unauthroized item'], 401);
         }
         $item->in_stock = false;
         $item->save();

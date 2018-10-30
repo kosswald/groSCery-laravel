@@ -8,14 +8,26 @@ use App\User;
 use Illuminate\Support\Facades\Auth; 
 use Validator;
 
+/**
+ * @group User Management
+ *
+ * APIs for managing users
+ */
 class UserController extends Controller 
 {
 public $successStatus = 200;
     
     /** 
-     * Login api 
+     * Login user
      * 
-     * @return \Illuminate\Http\Response 
+     * @bodyParam email email required User's email
+     * @bodyParam password string required User's password
+     * 
+     * @response {
+     *      "success" : {
+     *          "token" : "{token}"
+     *      }
+     * } 
      */ 
     public function login(){ 
         if(Auth::attempt(['email' => request('email'), 'password' => request('password')])){ 
@@ -28,24 +40,32 @@ public $successStatus = 200;
         } 
     }
 
-    /** 
-     * Logout api 
+    /**
+     * Logout user 
      * 
-     * @return \Illuminate\Http\Response 
+     * 
+     * @response {
+     *      "success" : "Token has been revoked"
+     * }
      */ 
     public function logout(){
-        if (Auth::check()) {
-            Auth::user()->token()->revoke();
-            return response()->json(['success' => 'Token has been revoked'], $this->successStatus);
-        } else { 
-            return response()->json(['error'=>'Invalid token'], 401); 
-        } 
+        Auth::user()->token()->revoke();
+        return response()->json(['success' => 'Token has been revoked'], $this->successStatus);
     }
 
     /** 
-     * Register api 
+     * Register new user 
      * 
-     * @return \Illuminate\Http\Response 
+     * @bodyParam name string required User's name
+     * @bodyParam email email required User's email
+     * @bodyParam password string required User's password 
+     * @bodyParam c_password string required Confirmed password. Should match password
+     * 
+     * @response {
+     *      "success" : {
+     *          "token" : "{token}"
+     *      }
+     * }  
      */ 
     public function register(Request $request) 
     { 
@@ -67,23 +87,42 @@ public $successStatus = 200;
     }
     
     /** 
-     * Details api. Returns user information
+     * User details
      * 
-     * @return \Illuminate\Http\Response 
+     * Returns basic user information
+     * 
+     * @response {
+     *      "success" : {
+     *          "id" : 1,
+     *          "group_id": 1,
+     *          "name": "Tommy",
+     *          "pic_url": "{url|null}}",
+     *          "email": "tommy@usc.edu",
+     *          "email_verified_at": null,
+     *          "created_at": "yyyy-mm-dd hh:mm:ss",
+     *          "updated_at": "yyyy-mm-dd hh:mm:ss"
+     *      }
+     * } 
      */ 
     public function details() 
     { 
-        $user = Auth::user();
-        if ($user) {
-            return response()->json(['success' => $user], $this->successStatus);
-        } else {
-            return response()->json(['error'=>'Unauthorised'], 401);
-        }
+        return response()->json(['success' => Auth::user()], $this->successStatus);
     }
 
-    
-    
-
-
+    /** 
+     * User items
+     * 
+     * Returns a user's items
+     * 
+     * @response {
+     *      "success" : {
+     *          "id" : 1
+     *      }
+     * } 
+     */ 
+    public function items() 
+    { 
+        return response()->json(['success' => Auth::user()->items()], $this->successStatus);
+    }
 
 }

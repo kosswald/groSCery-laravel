@@ -29,13 +29,11 @@ class User extends Authenticatable
      * @var array
      */
     protected $hidden = [
-        'password', 'remember_token',
+        'password', 'remember_token', 
     ];
 
     /**
      * Get the group for a user
-     * 
-     * @return App\Group
      */
     public function group() {
         return $this->belongsTo('App\Group');
@@ -43,10 +41,10 @@ class User extends Authenticatable
 
     /**
      * Get the items for the user
-     * 
-     * @return App\Item
      */
     public function items() {
         return $this->belongsToMany('App\Item');
     }
+
+
 }
