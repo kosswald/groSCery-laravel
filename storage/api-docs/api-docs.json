@@ -147,7 +147,7 @@
                 ]
             }
         },
-        "/api/groups/create/{group_name}": {
+        "/api/groups/create": {
             "post": {
                 "tags": [
                     "Groups"
