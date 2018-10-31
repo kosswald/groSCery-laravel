@@ -130,7 +130,7 @@ class GroupController extends Controller
 
     /**
     * @OA\Post(
-    *   path="/api/groups/create",
+    *   path="/api/groups/create/{group_name}",
     *   summary="Create a new group and subscribe to it",
     *   tags={"Groups"},
     *   security={"bearer"},
