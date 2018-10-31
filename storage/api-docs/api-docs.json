@@ -182,7 +182,288 @@
                                     "type": "object"
                                 },
                                 "example": {
-                                    "success": "Group 201 created and user is subscribed"
+                                    "success": {
+                                        "id": "1",
+                                        "name": "201"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/400"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/401"
+                    }
+                },
+                "security": [
+                    "bearer"
+                ]
+            }
+        },
+        "/api/items/create": {
+            "post": {
+                "tags": [
+                    "Items"
+                ],
+                "summary": "Create a new item and subscribe to it",
+                "operationId": "App\\Http\\Controllers\\ItemController::create",
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "properties": {
+                                    "group_id": {
+                                        "type": "int"
+                                    },
+                                    "name": {
+                                        "type": "string"
+                                    },
+                                    "in_stock": {
+                                        "type": "boolean"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
+                "responses": {
+                    "200": {
+                        "description": "Item created and user subscribed",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "example": {
+                                    "success": {
+                                        "id": "1",
+                                        "group_id": "1",
+                                        "name": "Banana",
+                                        "in_stock": "1"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/400"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/401"
+                    }
+                },
+                "security": [
+                    "bearer"
+                ]
+            }
+        },
+        "/api/items/subscribe/{item_id}": {
+            "post": {
+                "tags": [
+                    "Items"
+                ],
+                "summary": "Subscribe a user to an Item",
+                "operationId": "App\\Http\\Controllers\\ItemController::subscribe",
+                "responses": {
+                    "200": {
+                        "description": "User subscribed to Item",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "example": {
+                                    "success": {
+                                        "id": "1",
+                                        "group_id": "1",
+                                        "name": "Banana",
+                                        "in_stock": "1"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/400"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/401"
+                    }
+                },
+                "security": [
+                    "bearer"
+                ]
+            }
+        },
+        "/api/items/unsubscribe/{item_id}": {
+            "post": {
+                "tags": [
+                    "Items"
+                ],
+                "summary": "Unsubscribe a user to an Item",
+                "operationId": "App\\Http\\Controllers\\ItemController::unsubscribe",
+                "responses": {
+                    "200": {
+                        "description": "User unsubscribed to Item",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "example": {
+                                    "success": {
+                                        "id": "1",
+                                        "group_id": "1",
+                                        "name": "Banana",
+                                        "in_stock": "1"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/400"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/401"
+                    }
+                },
+                "security": [
+                    "bearer"
+                ]
+            }
+        },
+        "/api/items/in-stock/{item_id}": {
+            "post": {
+                "tags": [
+                    "Items"
+                ],
+                "summary": "Unsubscribe a user to an Item",
+                "operationId": "App\\Http\\Controllers\\ItemController::inStock",
+                "responses": {
+                    "200": {
+                        "description": "User unsubscribed to Item",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "example": {
+                                    "success": {
+                                        "id": "1",
+                                        "group_id": "1",
+                                        "name": "Banana",
+                                        "in_stock": "1"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/400"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/401"
+                    }
+                },
+                "security": [
+                    "bearer"
+                ]
+            }
+        },
+        "/api/items/out-of-stock/{item_id}": {
+            "post": {
+                "tags": [
+                    "Items"
+                ],
+                "summary": "Unsubscribe a user to an Item",
+                "operationId": "App\\Http\\Controllers\\ItemController::outOfStock",
+                "responses": {
+                    "200": {
+                        "description": "User unsubscribed to Item",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "example": {
+                                    "success": {
+                                        "id": "1",
+                                        "group_id": "1",
+                                        "name": "Banana",
+                                        "in_stock": "1"
+                                    }
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/400"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/401"
+                    }
+                },
+                "security": [
+                    "bearer"
+                ]
+            }
+        },
+        "/api/transactions/purchase": {
+            "post": {
+                "tags": [
+                    "Transactions"
+                ],
+                "summary": "Purchase an item and notify group",
+                "operationId": "App\\Http\\Controllers\\TransactionController::purchase",
+                "responses": {
+                    "200": {
+                        "description": "Item purchased successfully",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "example": {
+                                    "success": {
+                                        "id": "1",
+                                        "group_id": "1",
+                                        "name": "Banana",
+                                        "in_stock": "1"
+                                    }
                                 }
                             }
                         }

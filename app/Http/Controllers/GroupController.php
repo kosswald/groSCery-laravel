@@ -153,7 +153,7 @@ class GroupController extends Controller
     *               property="success",
     *               type="string"
     *           ),
-    *           example={"success": "Group 201 created and user is subscribed"}
+    *           example={"success": { "id":"1","name":"201"}}
     *       )
     *   ),
     *   @OA\Response(
@@ -169,7 +169,7 @@ class GroupController extends Controller
     public function create(Request $request) 
     {
         $validator = Validator::make($request->all(), [ 
-            'name' => 'required|string' 
+            'name' => 'required|string'
         ]);
         if ($validator->fails()) { 
             return response()->json(['error'=>$validator->errors()], 400);            
@@ -180,7 +180,7 @@ class GroupController extends Controller
         }
         $group = Group::create($input);
         $group->subscribeUser();
-        return response()->json(['success' => 'Group ' . $group->name . ' created and user has been subscribed'], $this->successStatus);
+        return response()->json(['success' => $group], $this->successStatus);
     }
 
 }

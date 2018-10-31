@@ -28,15 +28,13 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::post('groups/create','GroupController@create');
     Route::post('groups/subscribe/{group_id}','GroupController@subscribe');
 
-
     // Items routes
-    Route::post('items/add', 'ItemController@add');
+    Route::post('items/create', 'ItemController@create');
     Route::post('items/subscribe/{item_id}', 'ItemController@subscribe');
     Route::post('items/unsubscribe/{item_id}', 'ItemController@unsubscribe');
-    Route::post('items/item.out-of-stock/{item_id}','ItemController@outOfStock');
-    Route::post('items/item.in-stock/{item_id}','ItemController@inStock');
+    Route::post('items/in-stock/{item_id}','ItemController@inStock');
+    Route::post('items/out-of-stock/{item_id}','ItemController@outOfStock');
 
     // Transaction routes
-    Route::post('transactions/purchase/{item_id}','TransactionController@purchase');
-
+    Route::post('transactions/purchase','TransactionController@purchase');
 });

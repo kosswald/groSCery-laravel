@@ -3,9 +3,19 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Auth;
 
 class Item extends Model
 {
+    /**
+     * The attributes that are mass assignable.
+     *
+     * @var array
+     */
+    protected $fillable = [
+        'name','in_stock','group_id',
+    ];
+
     /**
      * The attributes that should be hidden for arrays.
      *
@@ -27,5 +37,19 @@ class Item extends Model
      */
     public function users() {
         return $this->belongsToMany('App\User');
+    }
+
+    /**
+     * Subscribe a user to this group
+     */
+    public function subscribeUser() {
+        $this->attach(Auth::user());
+    }
+
+    /**
+     * Unsubscribe a user to this group
+     */
+    public function unsubscribeUser() {
+        $this->detach(Auth::user());
     }
 }
