@@ -154,18 +154,29 @@ class ItemController extends Controller
     /**
     * @OA\Post(
     *   path="/api/items/in-stock/{item_id}",
-    *   summary="Unsubscribe a user to an Item",
+    *   summary="Mark a item as in stock",
     *   tags={"Items"},
     *   security={"bearer"},
     *   @OA\Response(
     *       response=200,
-    *       description="User unsubscribed to Item",
+    *       description="Item indicated as in stock",
     *       @OA\JsonContent(
     *           @OA\Property(
     *               property="success",
     *               type="string"
     *           ),
-    *           example={"success": {"id":"1","group_id":"1","name":"Banana","in_stock":"1",}}
+    *           example={"success": "Item marked in stock"}
+    *       )
+    *   ),
+    * @OA\Response(
+    *       response=404,
+    *       description="Item not found",
+    *       @OA\JsonContent(
+    *           @OA\Property(
+    *               property="success",
+    *               type="string"
+    *           ),
+    *           example={"success": "Item not found"}
     *       )
     *   ),
     *   @OA\Response(
@@ -193,19 +204,30 @@ class ItemController extends Controller
 
     /**
     * @OA\Post(
-    *   path="/api/items/out-of-stock/{item_id}",
-    *   summary="Unsubscribe a user to an Item",
+    *   path="/api/items/in-stock/{item_id}",
+    *   summary="Mark a item as in stock",
     *   tags={"Items"},
     *   security={"bearer"},
     *   @OA\Response(
     *       response=200,
-    *       description="User unsubscribed to Item",
+    *       description="Item indicated as out of stock",
     *       @OA\JsonContent(
     *           @OA\Property(
     *               property="success",
     *               type="string"
     *           ),
-    *           example={"success": {"id":"1","group_id":"1","name":"Banana","in_stock":"1",}}
+    *           example={"success": "Item marked out of stock"}
+    *       )
+    *   ),
+    * @OA\Response(
+    *       response=404,
+    *       description="Item not found",
+    *       @OA\JsonContent(
+    *           @OA\Property(
+    *               property="success",
+    *               type="string"
+    *           ),
+    *           example={"success": "Item not found"}
     *       )
     *   ),
     *   @OA\Response(
