@@ -22,16 +22,8 @@ class ItemController extends Controller
     *           mediaType="application/x-www-form-urlencoded",
     *           @OA\Schema(
     *               @OA\Property(
-    *                   property="group_id",
-    *                   type="int"
-    *               ),
-    *               @OA\Property(
     *                   property="name",
     *                   type="string"
-    *               ),
-    *               @OA\Property(
-    *                   property="in_stock",
-    *                   type="boolean"
     *               )
     *             )
     *         )
@@ -59,17 +51,22 @@ class ItemController extends Controller
     */ 
     public function create(Request $request) 
     { 
-        $validator = Validator::make($request->all(), [ 
-            'group_id' => 'required|int', 
-            'in_stock' => 'required|boolean', 
+        $validator = Validator::make($request->all(), [
             'name' => 'required|string', 
         ]);
         if ($validator->fails()) { 
             return response()->json(['error'=>$validator->errors()], 401);            
         }
-        $input = $request->all(); 
+        $input = $request->all();
+        $item = Item::where('name',$input['name'])->where('group_id', Auth::user()->group_id)->first();
+        if ($item) {
+            return response()->json(['error'=>'Item already exists'], 401);
+        }
+        $input['group_id'] = Auth::user()->group_id;
+        $input['in_stock'] = true;
         $item = Item::create($input);
         $item->subscribeUser();
+        $item->save();
         return response()->json(['success' => $item], $this->successStatus); 
     }
 

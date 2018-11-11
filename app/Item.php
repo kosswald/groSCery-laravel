@@ -43,13 +43,13 @@ class Item extends Model
      * Subscribe a user to this group
      */
     public function subscribeUser() {
-        $this->attach(Auth::user());
+        $this->users()->attach(Auth::user());
     }
 
     /**
      * Unsubscribe a user to this group
      */
     public function unsubscribeUser() {
-        $this->detach(Auth::user());
+        $this->users()->detach(Auth::user());
     }
 }
