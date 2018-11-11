@@ -412,7 +412,7 @@
                 "tags": [
                     "Items"
                 ],
-                "summary": "Mark a item as in stock",
+                "summary": "Mark a item as out of stock",
                 "operationId": "App\\Http\\Controllers\\ItemController::outOfStock",
                 "responses": {
                     "200": {

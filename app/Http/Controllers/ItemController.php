@@ -205,7 +205,7 @@ class ItemController extends Controller
     /**
     * @OA\Post(
     *   path="/api/items/out-of-stock/{item_id}",
-    *   summary="Mark a item as in stock",
+    *   summary="Mark a item as out of stock",
     *   tags={"Items"},
     *   security={"bearer"},
     *   @OA\Response(
