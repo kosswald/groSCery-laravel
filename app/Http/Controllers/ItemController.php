@@ -168,7 +168,7 @@ class ItemController extends Controller
     *           example={"success": "Item marked in stock"}
     *       )
     *   ),
-    * @OA\Response(
+    *   @OA\Response(
     *       response=404,
     *       description="Item not found",
     *       @OA\JsonContent(
@@ -204,7 +204,7 @@ class ItemController extends Controller
 
     /**
     * @OA\Post(
-    *   path="/api/items/in-stock/{item_id}",
+    *   path="/api/items/out-of-stock/{item_id}",
     *   summary="Mark a item as in stock",
     *   tags={"Items"},
     *   security={"bearer"},
@@ -219,7 +219,7 @@ class ItemController extends Controller
     *           example={"success": "Item marked out of stock"}
     *       )
     *   ),
-    * @OA\Response(
+    *   @OA\Response(
     *       response=404,
     *       description="Item not found",
     *       @OA\JsonContent(

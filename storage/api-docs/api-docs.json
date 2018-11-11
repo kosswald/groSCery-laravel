@@ -356,11 +356,11 @@
                 "tags": [
                     "Items"
                 ],
-                "summary": "Unsubscribe a user to an Item",
+                "summary": "Mark a item as in stock",
                 "operationId": "App\\Http\\Controllers\\ItemController::inStock",
                 "responses": {
                     "200": {
-                        "description": "User unsubscribed to Item",
+                        "description": "Item indicated as in stock",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -372,12 +372,25 @@
                                     "type": "object"
                                 },
                                 "example": {
-                                    "success": {
-                                        "id": "1",
-                                        "group_id": "1",
-                                        "name": "Banana",
-                                        "in_stock": "1"
-                                    }
+                                    "success": "Item marked in stock"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Item not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "example": {
+                                    "success": "Item not found"
                                 }
                             }
                         }
@@ -399,11 +412,11 @@
                 "tags": [
                     "Items"
                 ],
-                "summary": "Unsubscribe a user to an Item",
+                "summary": "Mark a item as in stock",
                 "operationId": "App\\Http\\Controllers\\ItemController::outOfStock",
                 "responses": {
                     "200": {
-                        "description": "User unsubscribed to Item",
+                        "description": "Item indicated as out of stock",
                         "content": {
                             "application/json": {
                                 "schema": {
@@ -415,12 +428,25 @@
                                     "type": "object"
                                 },
                                 "example": {
-                                    "success": {
-                                        "id": "1",
-                                        "group_id": "1",
-                                        "name": "Banana",
-                                        "in_stock": "1"
-                                    }
+                                    "success": "Item marked out of stock"
+                                }
+                            }
+                        }
+                    },
+                    "404": {
+                        "description": "Item not found",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "example": {
+                                    "success": "Item not found"
                                 }
                             }
                         }
