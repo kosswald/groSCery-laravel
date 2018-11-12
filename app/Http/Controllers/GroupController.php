@@ -88,7 +88,7 @@ class GroupController extends Controller
     */ 
     public function items() 
     {
-        return response()->json(['success' => Auth::user()->group()->items()->get()], $this->successStatus);
+        return response()->json(['success' => Auth::user()->group->items], $this->successStatus);
     }
 
     /**
