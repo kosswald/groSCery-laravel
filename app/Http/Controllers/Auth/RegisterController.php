@@ -63,10 +63,36 @@ class RegisterController extends Controller
      */
     protected function create(array $data)
     {
-        return User::create([
+        $user = User::create([
             'name' => $data['name'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
         ]);
+
+        //  php composer.phar require guzzlehttp/guzzle:~6.0
+    
+
+
+        $client = new GuzzleHttp\Client();
+        $response = $client->request('POST', 'http://httpbin.org/post', [
+            'user' => [
+                'name' => 'abc',
+                'email' => '123',
+                'password' => 'password'
+            ]
+        ]);
+        
+        echo $response->getStatusCode(); // 200
+        echo $response->getBody(); 
+
+
+
+        return $user;
     }
+
+
+
+
 }
+
+
