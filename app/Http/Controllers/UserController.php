@@ -309,7 +309,7 @@ class UserController extends Controller
     */ 
     public function items() 
     {
-        return response()->json(['success' => Auth::user()->items()], $this->successStatus);
+        return response()->json(['success' => Auth::user()->items()->get()], $this->successStatus);
     }
 
 

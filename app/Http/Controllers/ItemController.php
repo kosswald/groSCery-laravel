@@ -40,6 +40,17 @@ class ItemController extends Controller
     *       )
     *   ),
     *   @OA\Response(
+    *       response=409,
+    *       description="Item created and user subscribed",
+    *       @OA\JsonContent(
+    *           @OA\Property(
+    *               property="success",
+    *               type="string"
+    *           ),
+    *           example={"success": "Item already exists"}
+    *       )
+    *   ),
+    *   @OA\Response(
     *       response=400,
     *       ref="#/components/responses/400",
     *   ),
@@ -60,7 +71,7 @@ class ItemController extends Controller
         $input = $request->all();
         $item = Item::where('name',$input['name'])->where('group_id', Auth::user()->group_id)->first();
         if ($item) {
-            return response()->json(['error'=>'Item already exists'], 401);
+            return response()->json(['error'=>'Item already exists'], 409);
         }
         $input['group_id'] = Auth::user()->group_id;
         $input['in_stock'] = true;
