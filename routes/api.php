@@ -25,11 +25,13 @@ Route::group(['middleware' => 'auth:api'], function(){
     // Groups routes
     Route::get('groups/list','GroupController@list');
     Route::get('groups/items','GroupController@items');
+    Route::get('groups/subscribers', 'GroupController@subscribers');
     Route::post('groups/create','GroupController@create');
     Route::post('groups/subscribe/{group_id}','GroupController@subscribe');
 
     // Items routes
     Route::post('items/create', 'ItemController@create');
+    Route::get('items/subscribers/{item_id}', 'ItemController@subscribers');
     Route::post('items/subscribe/{item_id}', 'ItemController@subscribe');
     Route::post('items/unsubscribe/{item_id}', 'ItemController@unsubscribe');
     Route::post('items/in-stock/{item_id}','ItemController@inStock');

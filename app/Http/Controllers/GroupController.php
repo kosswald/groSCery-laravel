@@ -129,6 +129,40 @@ class GroupController extends Controller
     }
 
     /**
+    * @OA\Get(
+    *   path="/api/groups/subscribers",
+    *   summary="Gets the list of users subscribed to users Group",
+    *   tags={"Groups"},
+    *   security={"bearer"},
+    *   @OA\Response(
+    *       response=200,
+    *       description="Group subscribers returned",
+    *       @OA\JsonContent(
+    *           @OA\Property(
+    *               property="success",
+    *               type="string"
+    *           ),
+    *           example={"success": {{"id":2,"group_id":null,"name":"Kristof","pic_url":null,"email":"kristof@usc.edu","created_at":"2018-10-30 01:13:02"}}}
+    *       )
+    *   ),
+    *   @OA\Response(
+    *       response=400,
+    *       ref="#/components/responses/400",
+    *   ),
+    *   @OA\Response(
+    *       response=401,
+    *       ref="#/components/responses/401",
+    *   )
+    * )
+    */ 
+    public function subscribers() {
+        if (!Auth::user()->group) {
+            return response()->json(['error'=>'Not in group'], 400);
+        }
+        return response()->json(['success'=>Auth::user()->group->users], 200);
+    }
+
+    /**
     * @OA\Post(
     *   path="/api/groups/create",
     *   summary="Create a new group and subscribe to it",

@@ -82,6 +82,44 @@ class ItemController extends Controller
     }
 
     /**
+    * @OA\Get(
+    *   path="/api/items/subscribers/{item_id}",
+    *   summary="Gets the list of users subscribed to a Item",
+    *   tags={"Items"},
+    *   security={"bearer"},
+    *   @OA\Response(
+    *       response=200,
+    *       description="Item subscribers returned",
+    *       @OA\JsonContent(
+    *           @OA\Property(
+    *               property="success",
+    *               type="string"
+    *           ),
+    *           example={"success": {{"id":2,"group_id":null,"name":"Kristof","pic_url":null,"email":"kristof@usc.edu","created_at":"2018-10-30 01:13:02"}}}
+    *       )
+    *   ),
+    *   @OA\Response(
+    *       response=400,
+    *       ref="#/components/responses/400",
+    *   ),
+    *   @OA\Response(
+    *       response=401,
+    *       ref="#/components/responses/401",
+    *   )
+    * )
+    */ 
+    public function subscribers($item_id) {
+        $item = Item::find($item_id);
+        if (!$item) {
+            return response()->json(['error'=>'Item not found'], 404);
+        }
+        if ($item->group_id != Auth::user()->group_id){
+            return response()->json(['error'=>'Unauthroized'], 401);
+        }
+        return response()->json(['success'=>$item->users], 200);
+    }
+
+    /**
     * @OA\Post(
     *   path="/api/items/subscribe/{item_id}",
     *   summary="Subscribe a user to an Item",
