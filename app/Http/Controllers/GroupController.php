@@ -129,6 +129,43 @@ class GroupController extends Controller
     }
 
     /**
+    * @OA\Post(
+    *   path="/api/groups/unsubscribe",
+    *   summary="Unsubscribe a user from a group",
+    *   tags={"Groups"},
+    *   security={"bearer"},
+    *   @OA\Response(
+    *       response=200,
+    *       description="User has been unsubscribed from their group",
+    *       @OA\JsonContent(
+    *           @OA\Property(
+    *               property="success",
+    *               type="string"
+    *           ),
+    *           example={"success": "User has been unsubscribed to group 201"}
+    *       )
+    *   ),
+    *   @OA\Response(
+    *       response=400,
+    *       ref="#/components/responses/400",
+    *   ),
+    *   @OA\Response(
+    *       response=401,
+    *       ref="#/components/responses/401",
+    *   )
+    * )
+    */ 
+    public function unsubscribe() 
+    {
+        $group = Auth::user()->group;
+        if (!$group) {
+            return response()->json(['error'=>'User has no Group'], 400);
+        }
+        Auth::user()->group = null;
+        return response()->json(['success' => 'User has been subscribed to ' . $group->name], $this->successStatus);
+    }
+
+    /**
     * @OA\Get(
     *   path="/api/groups/subscribers",
     *   summary="Gets the list of users subscribed to users Group",

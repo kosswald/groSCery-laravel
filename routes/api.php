@@ -28,6 +28,7 @@ Route::group(['middleware' => 'auth:api'], function(){
     Route::get('groups/subscribers', 'GroupController@subscribers');
     Route::post('groups/create','GroupController@create');
     Route::post('groups/subscribe/{group_id}','GroupController@subscribe');
+    Route::post('groups/unsubscribe','GroupController@unsubscribe');
 
     // Items routes
     Route::post('items/create', 'ItemController@create');

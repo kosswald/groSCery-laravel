@@ -147,6 +147,44 @@
                 ]
             }
         },
+        "/api/groups/unsubscribe": {
+            "post": {
+                "tags": [
+                    "Groups"
+                ],
+                "summary": "Unsubscribe a user from a group",
+                "operationId": "App\\Http\\Controllers\\GroupController::unsubscribe",
+                "responses": {
+                    "200": {
+                        "description": "User has been unsubscribed from their group",
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "properties": {
+                                        "success": {
+                                            "type": "string"
+                                        }
+                                    },
+                                    "type": "object"
+                                },
+                                "example": {
+                                    "success": "User has been unsubscribed to group 201"
+                                }
+                            }
+                        }
+                    },
+                    "400": {
+                        "$ref": "#/components/responses/400"
+                    },
+                    "401": {
+                        "$ref": "#/components/responses/401"
+                    }
+                },
+                "security": [
+                    "bearer"
+                ]
+            }
+        },
         "/api/groups/subscribers": {
             "get": {
                 "tags": [
