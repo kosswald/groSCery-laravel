@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Auth;
 use App\User;
 use App\Item;
 use App\Transaction;
+use App\Mail\PurchaseMade;
+use Mail;
 
 class TransactionController extends Controller
 {
@@ -40,10 +42,10 @@ class TransactionController extends Controller
     *   )
     * )
     */ 
-    public function purchase() {
+    public function purchase(Request $request) {
         $validator = Validator::make($request->all(), [ 
             'item_id' => 'required|int', 
-            'price' => 'required|double',
+            'price' => 'required|numeric',
         ]);
         if ($validator->fails()) { 
             return response()->json(['error'=>$validator->errors()], 401);            
@@ -56,7 +58,21 @@ class TransactionController extends Controller
         if ($item->group_id != Auth::user()->group_id){
             return response()->json(['error'=>'Unauthroized'], 401);
         }
-        $tran = Transaction::create($input);
-        return response()->json(['success' => $item], $this->successStatus); 
+
+        $tran = new Transaction;
+        $tran->user_id = Auth::user()->id;
+        $tran->group_id = Auth::user()->group_id;
+        $tran->item_id = $item->id;
+        $tran->price = $input['price'];
+        $tran->save();
+
+        $groupUsers = Auth::user()->group->users;
+        foreach ($groupUsers as $user) {
+            if ($user->id != Auth::user()->id) {
+                Mail::to($user->email)->queue(new PurchaseMade($tran));
+            }
+        }
+        
+        return response()->json(['success' => $tran], $this->successStatus); 
     }
 }

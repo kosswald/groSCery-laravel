@@ -14,5 +14,8 @@ class GroupsTableSeeder extends Seeder
         DB::table('groups')->insert([
             'name' => '201'
         ]);
+        DB::table('groups')->insert([
+            'name' => '270'
+        ]);
     }
 }

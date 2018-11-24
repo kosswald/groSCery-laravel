@@ -17,5 +17,17 @@ class UsersTableSeeder extends Seeder
             'email' => 'osswald@usc.edu',
             'password' => bcrypt('password'),
         ]);
+        DB::table('users')->insert([
+            'name' => 'Max',
+            'group_id' => 1,
+            'email' => 'max@usc.edu',
+            'password' => bcrypt('password'),
+        ]);
+        DB::table('users')->insert([
+            'name' => 'Naman',
+            'group_id' => 1,
+            'email' => 'naman@usc.edu',
+            'password' => bcrypt('password'),
+        ]);
     }
 }
