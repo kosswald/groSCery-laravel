@@ -31,7 +31,7 @@ class TransactionController extends Controller
     *               ),
     *               @OA\Property(
     *                   property="price",
-    *                   type="int"
+    *                   type="numeric"
     *               ),
     *             )
     *         )

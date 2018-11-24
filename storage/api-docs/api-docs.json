@@ -623,7 +623,7 @@
                                         "type": "int"
                                     },
                                     "price": {
-                                        "type": "int"
+                                        "type": "numeric"
                                     }
                                 },
                                 "type": "object"
