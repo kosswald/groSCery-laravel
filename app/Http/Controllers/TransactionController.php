@@ -44,7 +44,7 @@ class TransactionController extends Controller
     *               property="success",
     *               type="string"
     *           ),
-    *           example={"success": {"id":"1","group_id":"1","name":"Banana","in_stock":"1",}}
+    *           example={"success":{"user_id":1,"group_id":1,"item_id":1,"price":"5.99","created_at":"2018-11-24 06:30:54","id":27}}
     *       )
     *   ),
     *   @OA\Response(
