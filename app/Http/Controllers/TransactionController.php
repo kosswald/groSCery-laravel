@@ -73,6 +73,9 @@ class TransactionController extends Controller
         if ($item->group_id != Auth::user()->group_id){
             return response()->json(['error'=>'Unauthroized'], 401);
         }
+        
+        $item->in_stock = true;
+        $item->save();
 
         $tran = new Transaction;
         $tran->user_id = Auth::user()->id;
