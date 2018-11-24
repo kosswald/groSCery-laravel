@@ -614,6 +614,23 @@
                 ],
                 "summary": "Purchase an item and notify group",
                 "operationId": "App\\Http\\Controllers\\TransactionController::purchase",
+                "requestBody": {
+                    "content": {
+                        "application/x-www-form-urlencoded": {
+                            "schema": {
+                                "properties": {
+                                    "item_id": {
+                                        "type": "int"
+                                    },
+                                    "price": {
+                                        "type": "int"
+                                    }
+                                },
+                                "type": "object"
+                            }
+                        }
+                    }
+                },
                 "responses": {
                     "200": {
                         "description": "Item purchased successfully",

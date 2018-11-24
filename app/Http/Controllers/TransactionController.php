@@ -21,6 +21,21 @@ class TransactionController extends Controller
     *   summary="Purchase an item and notify group",
     *   tags={"Transactions"},
     *   security={"bearer"},
+    *   @OA\RequestBody(
+    *       @OA\MediaType(
+    *           mediaType="application/x-www-form-urlencoded",
+    *           @OA\Schema(
+    *               @OA\Property(
+    *                   property="item_id",
+    *                   type="int"
+    *               ),
+    *               @OA\Property(
+    *                   property="price",
+    *                   type="int"
+    *               ),
+    *             )
+    *         )
+    *   ),
     *   @OA\Response(
     *       response=200,
     *       description="Item purchased successfully",
@@ -66,8 +81,8 @@ class TransactionController extends Controller
         $tran->price = $input['price'];
         $tran->save();
 
-        $groupUsers = Auth::user()->group->users;
-        foreach ($groupUsers as $user) {
+        $itemUsers = $item->users;
+        foreach ($itemUsers as $user) {
             if ($user->id != Auth::user()->id) {
                 Mail::to($user->email)->queue(new PurchaseMade($tran));
             }
